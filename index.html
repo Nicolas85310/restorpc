@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#244eae">
+  <meta name="description" content="RESTORPC : réparation, dépannage et optimisation informatique pour particuliers. PC fixes, portables, PC gaming et consoles.">
+  <title>RESTORPC | Réparation & optimisation informatique</title>
+  <style>
+    :root {
+      --blue: #244eae;
+      --blue-2: #387be0;
+      --purple: #644ce6;
+      --purple-2: #806cf0;
+      --ink: #172b50;
+      --muted: #64748b;
+      --pale: #f2f5ff;
+      --line: #e5eaf3;
+      --white: #fff;
+      --shadow: 0 18px 55px rgba(30, 55, 110, .10);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; color: var(--ink); background: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94);
+      backdrop-filter: blur(14px); border-bottom: 1px solid rgba(229,234,243,.9);
+    }
+    .nav { min-height: 76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:flex; align-items:center; gap:11px; text-decoration:none; font-weight:900; letter-spacing:.035em; font-size:1.35rem; }
+    .brand-mark {
+      width:39px; height:39px; display:grid; place-items:center; border-radius:12px;
+      color:white; background:linear-gradient(135deg,var(--blue-2),var(--purple));
+      box-shadow:0 8px 18px rgba(100,76,230,.22);
+    }
+    .brand span:last-child { background:linear-gradient(90deg,var(--blue),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .navlinks { display:flex; align-items:center; gap:25px; }
+    .navlinks a { text-decoration:none; font-size:.94rem; font-weight:650; color:#40516d; }
+    .navlinks a:hover { color:var(--purple); }
+    .nav-cta,.btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none;
+      padding:12px 19px; border-radius:12px; font-weight:750; border:0; cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .nav-cta,.btn-primary { color:#fff; background:linear-gradient(100deg,var(--blue),var(--purple)); box-shadow:0 9px 22px rgba(91,83,220,.20); }
+    .nav-cta:hover,.btn:hover { transform:translateY(-2px); box-shadow:0 13px 25px rgba(91,83,220,.24); }
+    .menu-btn { display:none; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:10px; padding:9px 12px; font-size:1.2rem; }
+    .hero {
+      overflow:hidden; position:relative; padding:86px 0 78px;
+      background:radial-gradient(circle at 85% 18%,rgba(128,108,240,.16),transparent 28%),
+                 radial-gradient(circle at 10% 90%,rgba(56,123,224,.12),transparent 30%),
+                 linear-gradient(180deg,#f5f7ff 0%,#fff 100%);
+    }
+    .hero-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:58px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; color:var(--blue); background:#e9efff; border:1px solid #dbe5ff; padding:7px 12px; border-radius:999px; font-weight:750; font-size:.83rem; }
+    h1 { font-size:clamp(2.55rem,5vw,4.5rem); line-height:1.08; letter-spacing:-.055em; margin:20px 0 20px; max-width:720px; }
+    .gradient-text { background:linear-gradient(100deg,var(--blue),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .hero-copy { max-width:640px; color:#53647e; font-size:1.1rem; }
+    .hero-actions { display:flex; gap:13px; flex-wrap:wrap; margin-top:30px; }
+    .btn-secondary { color:var(--blue); border:1px solid #d8e2f6; background:#fff; }
+    .hero-note { margin-top:21px; color:#718096; font-size:.9rem; }
+    .visual-card {
+      position:relative; padding:28px; border-radius:28px; color:#fff;
+      background:linear-gradient(145deg,#203f91 0%,#3d5fc2 48%,#6c54d9 100%);
+      box-shadow:0 25px 65px rgba(48,64,151,.25); min-height:350px; overflow:hidden;
+    }
+    .visual-card:before,.visual-card:after { content:""; position:absolute; border:1px solid rgba(255,255,255,.16); border-radius:50%; }
+    .visual-card:before { width:310px;height:310px;right:-110px;top:-120px; }
+    .visual-card:after { width:230px;height:230px;right:-70px;top:-80px; }
+    .visual-icon { font-size:3.4rem; line-height:1; margin:18px 0 25px; }
+    .visual-card h2 { font-size:1.65rem; line-height:1.2; max-width:280px; margin:0 0 12px; }
+    .visual-card p { color:rgba(255,255,255,.82); max-width:300px; margin:0; }
+    .mini-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:27px; }
+    .mini-pills span { font-size:.78rem; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.1); padding:6px 10px; border-radius:999px; }
+    section { padding:82px 0; }
+    .section-head { max-width:700px; margin:0 auto 42px; text-align:center; }
+    .kicker { color:var(--purple); font-size:.8rem; text-transform:uppercase; letter-spacing:.14em; font-weight:850; }
+    h2.section-title { margin:9px 0 12px; font-size:clamp(2rem,3.5vw,2.8rem); line-height:1.15; letter-spacing:-.04em; }
+    .section-desc { color:var(--muted); margin:0; }
+    .services { background:#fff; }
+    .service-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .service-card { padding:25px; border:1px solid var(--line); border-radius:var(--radius); background:#fff; box-shadow:0 7px 24px rgba(30,55,110,.045); }
+    .service-icon { width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#eef2ff;color:var(--purple);font-size:1.45rem;margin-bottom:18px; }
+    .service-card h3 { margin:0 0 8px; font-size:1.12rem; }
+    .service-card p { color:var(--muted); margin:0; font-size:.95rem; }
+    .about { background:var(--pale); }
+    .about-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:55px; align-items:center; }
+    .about-panel { padding:30px; border-radius:26px; background:linear-gradient(145deg,#244eae,#644ce6); color:#fff; min-height:290px; display:flex; flex-direction:column; justify-content:space-between; }
+    .about-panel .big { font-size:3.2rem; }
+    .about-panel p { color:rgba(255,255,255,.86); margin:8px 0 0; }
+    .about-copy h2 { font-size:2.25rem; line-height:1.18; margin:0 0 18px; letter-spacing:-.04em; }
+    .about-copy p { color:#596981; }
+    .check-list { list-style:none; padding:0; margin:20px 0 0; display:grid; gap:11px; }
+    .check-list li:before { content:"✓"; color:var(--purple); font-weight:900; margin-right:10px; }
+    .reviews { background:#fff; }
+    .review-shell { max-width:850px; margin:auto; background:#f8f9ff; border:1px solid var(--line); border-radius:24px; padding:25px; }
+    .review-top { display:flex; justify-content:space-between; gap:15px; align-items:center; margin-bottom:14px; }
+    .review-top strong { font-size:1.05rem; }
+    .review-list { display:grid; gap:12px; }
+    .review-item { background:#fff; border:1px solid #e9edf5; border-radius:15px; padding:17px 19px; }
+    .stars { color:#e6a817; letter-spacing:2px; font-size:1.12rem; }
+    .review-comment { margin:7px 0 0; color:#465773; overflow-wrap:anywhere; }
+    .review-meta { margin-top:7px; color:#8a96a8; font-size:.78rem; }
+    .review-empty,.review-status { color:var(--muted); text-align:center; padding:20px 8px; }
+    .contact { background:linear-gradient(180deg,#f4f6ff,#fff); }
+    .contact-card { max-width:850px; margin:auto; padding:38px; border-radius:26px; text-align:center; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow); }
+    .contact-card p { color:var(--muted); max-width:590px; margin:12px auto 24px; }
+    .practical-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:850px; margin:auto; }
+    .practical-card { padding:24px; border:1px solid var(--line); border-radius:18px; }
+    .practical-card h3 { margin:0 0 7px; }
+    .practical-card p { margin:0; color:var(--muted); }
+    footer { padding:28px 0; border-top:1px solid var(--line); color:#8290a4; font-size:.86rem; }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .footer-brand { color:var(--blue); font-weight:900; letter-spacing:.04em; }
+    @media (max-width:850px) {
+      .navlinks { display:none; position:absolute; top:76px; left:0; right:0; padding:18px 22px 22px; background:#fff; border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:14px; }
+      .navlinks.open { display:flex; }
+      .navlinks .nav-cta { text-align:center; }
+      .menu-btn { display:block; }
+      .hero-grid,.about-grid { grid-template-columns:1fr; gap:35px; }
+      .visual-card { min-height:290px; }
+      .service-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:560px) {
+      .wrap { width:min(100% - 30px,1120px); }
+      .hero { padding:58px 0 55px; }
+      section { padding:62px 0; }
+      .service-grid,.practical-grid { grid-template-columns:1fr; }
+      .contact-card { padding:27px 20px; }
+      .review-shell { padding:15px; }
+      .review-top { align-items:flex-start; flex-direction:column; }
+      .brand { font-size:1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#accueil" aria-label="RESTORPC, accueil">
+        <span class="brand-mark">R</span><span>RESTORPC</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+      <nav class="navlinks" id="navLinks" aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a>
+        <a href="#prestations">Prestations</a>
+        <a href="#avis">Avis clients</a>
+        <a href="#contact">Nous contacter</a>
+        <a href="#infos">Informations pratiques</a>
+        <a class="nav-cta" href="https://devis.pro/restorpc85" target="_blank" rel="noopener">Demander un renseignement ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">● Informatique pour particuliers</span>
+          <h1>Un technicien informatique <span class="gradient-text">passionné</span> à votre service.</h1>
+          <p class="hero-copy">Réparation, dépannage et optimisation de vos ordinateurs et consoles. Des solutions adaptées, des explications claires et des tarifs justes.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#prestations">Découvrir les prestations <span>→</span></a>
+            <a class="btn btn-secondary" href="https://devis.pro/restorpc85" target="_blank" rel="noopener">Me contacter</a>
+          </div>
+          <p class="hero-note">Dépôt et récupération du matériel sur rendez-vous · Pas de déplacement à domicile.</p>
+        </div>
+        <div class="visual-card" aria-label="Services de réparation informatique">
+          <div class="visual-icon">💻</div>
+          <h2>Redonnez une seconde jeunesse à votre matériel.</h2>
+          <p>Un ordinateur lent, une panne ou un besoin d'amélioration ? Trouvons la solution adaptée.</p>
+          <div class="mini-pills"><span>PC fixes</span><span>PC portables</span><span>PC gaming</span><span>Consoles</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="prestations">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Prestations</span>
+          <h2 class="section-title">Des solutions pour votre matériel</h2>
+          <p class="section-desc">RESTORPC accompagne les particuliers pour le dépannage, la réparation et l'entretien de leur équipement informatique.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card"><div class="service-icon">🛠️</div><h3>Dépannage & réparation</h3><p>Recherche de panne, dysfonctionnements, problèmes de démarrage et remplacement de composants.</p></article>
+          <article class="service-card"><div class="service-icon">⚡</div><h3>Optimisation</h3><p>Amélioration des performances, ordinateur lent, nettoyage logiciel et remise en forme du système.</p></article>
+          <article class="service-card"><div class="service-icon">🪟</div><h3>Installation Windows</h3><p>Installation ou réinstallation de Windows et configuration de votre environnement informatique.</p></article>
+          <article class="service-card"><div class="service-icon">🛡️</div><h3>Virus & sécurité</h3><p>Diagnostic et traitement des problèmes liés aux logiciels indésirables et aux infections courantes.</p></article>
+          <article class="service-card"><div class="service-icon">🖥️</div><h3>PC fixes, portables & gaming</h3><p>Prise en charge des ordinateurs de bureau, PC portables et configurations dédiées au jeu.</p></article>
+          <article class="service-card"><div class="service-icon">🎮</div><h3>Consoles</h3><p>Dépannage, entretien et réparation de consoles, selon la panne et le modèle.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="wrap about-grid">
+        <div class="about-panel">
+          <div class="big">🔧</div>
+          <div><strong>Un service de proximité, sans complication.</strong><p>Un interlocuteur unique, des explications compréhensibles et une prestation adaptée à votre besoin.</p></div>
+        </div>
+        <div class="about-copy">
+          <span class="kicker">L'esprit RESTORPC</span>
+          <h2>Votre matériel mérite une seconde jeunesse.</h2>
+          <p>Mon objectif : redonner vitesse, stabilité et fiabilité à votre ordinateur ou à votre console, avec un service rapide, clair et au prix juste.</p>
+          <ul class="check-list">
+            <li>Des explications simples et transparentes</li>
+            <li>Des solutions adaptées à votre matériel</li>
+            <li>Un tarif annoncé clairement</li>
+            <li>Un dépôt et une récupération sur rendez-vous</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews" id="avis">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Avis clients</span>
+          <h2 class="section-title">Votre expérience compte</h2>
+          <p class="section-desc">Découvrez les derniers retours partagés anonymement par les clients RESTORPC.</p>
+        </div>
+        <div class="review-shell">
+          <div class="review-top"><strong>Les 5 derniers avis</strong><span class="review-status" id="reviewStatus" aria-live="polite">Chargement des avis…</span></div>
+          <div class="review-list" id="reviewList"><div class="review-empty">Les avis seront affichés ici.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="contact-card">
+          <span class="kicker">Nous contacter</span>
+          <h2 class="section-title">Un problème informatique ?</h2>
+          <p>Décrivez votre besoin via le formulaire de contact. Votre demande sera transmise directement à RESTORPC.</p>
+          <a class="btn btn-primary" href="https://devis.pro/restorpc85" target="_blank" rel="noopener">Accéder au formulaire de contact ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="infos">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Informations pratiques</span>
+          <h2 class="section-title">Comment ça fonctionne ?</h2>
+          <p class="section-desc">Une prise de contact simple, puis un rendez-vous pour déposer et récupérer votre matériel.</p>
+        </div>
+        <div class="practical-grid">
+          <article class="practical-card"><h3>📍 Dépôt du matériel</h3><p>Les modalités et le lieu de dépôt sont communiqués lors de la prise de contact. Dépôt sur rendez-vous uniquement.</p></article>
+          <article class="practical-card"><h3>🕒 Fonctionnement</h3><p>RESTORPC intervient auprès des particuliers. Pas de déplacement à domicile pour le moment.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span class="footer-brand">RESTORPC</span>
+      <span>Réparation · Optimisation · Assistance informatique</span>
+      <span>© <span id="year"></span> RESTORPC</span>
+    </div>
+  </footer>
+
+  <script>
+    // À compléter après le déploiement du Google Apps Script :
+    // coller ici l'URL de l'application web terminant par /exec.
+    const APPS_SCRIPT_URL = "REMPLACER_PAR_URL_APPS_SCRIPT_EXEC";
+
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    menuBtn.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(open));
+      menuBtn.textContent = open ? "✕" : "☰";
+    });
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.textContent = "☰";
+    }));
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function showReviews(reviews) {
+      const list = document.getElementById("reviewList");
+      const status = document.getElementById("reviewStatus");
+      list.replaceChildren();
+      if (!Array.isArray(reviews) || reviews.length === 0) {
+        list.innerHTML = '<div class="review-empty">Aucun avis publié pour le moment. Soyez le premier à partager votre expérience !</div>';
+        status.textContent = "0 avis";
+        return;
+      }
+      reviews.slice(0, 5).forEach(review => {
+        const item = document.createElement("article");
+        item.className = "review-item";
+        const stars = document.createElement("div");
+        stars.className = "stars";
+        const rating = Math.max(1, Math.min(5, Number(review.rating) || 0));
+        stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+        stars.setAttribute("aria-label", rating + " étoiles sur 5");
+        item.appendChild(stars);
+        if (review.comment && String(review.comment).trim()) {
+          const comment = document.createElement("p");
+          comment.className = "review-comment";
+          comment.textContent = String(review.comment).slice(0, 2000);
+          item.appendChild(comment);
+        } else {
+          const comment = document.createElement("p");
+          comment.className = "review-comment";
+          comment.textContent = "Avis sans commentaire.";
+          item.appendChild(comment);
+        }
+        const meta = document.createElement("div");
+        meta.className = "review-meta";
+        meta.textContent = "Avis anonyme";
+        item.appendChild(meta);
+        list.appendChild(item);
+      });
+      status.textContent = reviews.length + (reviews.length > 1 ? " avis récents" : " avis récent");
+    }
+
+    // JSONP : permet de lire les avis Google Apps Script depuis un autre domaine.
+    function loadReviews() {
+      const status = document.getElementById("reviewStatus");
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("REMPLACER_PAR")) {
+        status.textContent = "Connexion aux avis à configurer";
+        showReviews([]);
+        status.textContent = "Connexion à configurer";
+        return;
+      }
+      const callbackName = "restorpcReviewsCallback";
+      window[callbackName] = data => {
+        try {
+          showReviews(data && data.reviews ? data.reviews : []);
+        } catch (err) {
+          status.textContent = "Impossible d'afficher les avis";
+        } finally {
+          delete window[callbackName];
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+      };
+      const script = document.createElement("script");
+      script.src = APPS_SCRIPT_URL + (APPS_SCRIPT_URL.includes("?") ? "&" : "?")
+        + "callback=" + callbackName + "&_=" + Date.now();
+      script.onerror = () => {
+        status.textContent = "Avis momentanément indisponibles";
+        delete window[callbackName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+      document.head.appendChild(script);
+    }
+    loadReviews();
+  </script>
+</body>
+</html>

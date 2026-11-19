@@ -1,0 +1,41 @@
+RESTORPC - site vitrine
+=======================
+
+Contenu
+-------
+- index.html : site vitrine responsive, prêt à personnaliser.
+- apps-script.gs : code Google Apps Script complet pour enregistrer les avis et fournir les 5 derniers au site.
+
+À faire avant publication
+-------------------------
+1. Dans index.html, remplacer :
+   REMPlACER_PAR_URL_APPS_SCRIPT_EXEC
+   (sans espace : le texte exact dans le fichier est REMPlACER_PAR_URL_APPS_SCRIPT_EXEC)
+   par l'URL de l'application Web Apps Script terminant par /exec.
+
+2. Dans Google Sheets, vérifier que la première ligne contient :
+   Date | Note / 5 | Commentaire
+
+3. Dans Apps Script, remplacer l'ancien code par le contenu de apps-script.gs.
+   Enregistrer, puis Déployer > Gérer les déploiements > Modifier > Nouvelle version > Déployer.
+   L'URL /exec reste normalement identique lors de la mise à jour du déploiement.
+
+4. Héberger index.html sur le site public.
+
+5. Tester :
+   - ouvrir le site public ;
+   - vérifier que les avis existants apparaissent ;
+   - soumettre un nouvel avis via le formulaire de satisfaction ;
+   - vérifier que le nouvel avis apparaît dans la liste.
+
+Important - anonymat
+--------------------
+Le script ne demande ni nom ni adresse e-mail et ne les enregistre pas dans la feuille.
+La date et l'heure de réception sont conservées dans la feuille, avec la note et le commentaire.
+Les commentaires seront affichés tels quels sur le site : il est donc conseillé de contrôler les commentaires avant de rendre la page publique si un client pourrait y inscrire spontanément une information personnelle.
+
+Personnalisation à faire plus tard
+----------------------------------
+- Remplacer le logo texte provisoire par le logo RESTORPC.
+- Compléter les coordonnées et la zone d'intervention si souhaité.
+- Ajouter éventuellement une page de mentions légales et une politique de confidentialité avant publication.
