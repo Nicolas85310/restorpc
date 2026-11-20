@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Avis client - RESTORPC85</title>
 
 <style>
@@ -190,7 +191,7 @@ button:disabled { opacity: .6; }
   <div id="blocked">
     <h2>Vous avez déjà participé !</h2>
     <p class="subtitle">
-      Un avis a déjà été envoyé depuis ce navigateur.
+      Un avis a déjà été envoyé pour cette facture.
     </p>
     <div style="font-size:45px;color:#2476c9">✓</div>
   </div>
@@ -203,7 +204,8 @@ button:disabled { opacity: .6; }
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxg3301S_D8vZMrtFRH29HSXil7VyxS1wEVJLJgnhNzYzLhPYNx3HGoDXQ3IfID4Yk/exec";
 
-const BROWSER_ID_KEY = "restorpc_browser_id";
+// Récupération du token dans l'adresse
+const token = new URLSearchParams(window.location.search).get("token");
 
 const form = document.getElementById("survey");
 const labels = document.querySelectorAll(".stars label");
@@ -212,25 +214,8 @@ const radios = document.querySelectorAll(".stars input");
 const formArea = document.getElementById("formArea");
 const sendButton = document.getElementById("send");
 
-// Évite d'afficher le formulaire avant la vérification serveur
+// Masque le formulaire pendant la vérification
 formArea.style.visibility = "hidden";
-
-function getBrowserId() {
-  let id = localStorage.getItem(BROWSER_ID_KEY);
-
-  if (!id) {
-    id = crypto.randomUUID
-      ? crypto.randomUUID()
-      : "xxxxxxxxyxxx4xxxyxxxyxxxxxxxxxxx".replace(/[xy]/g, c => {
-          const r = Math.random() * 16 | 0;
-          return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-
-    localStorage.setItem(BROWSER_ID_KEY, id);
-  }
-
-  return id;
-}
 
 function showBlocked() {
   formArea.style.display = "none";
@@ -238,8 +223,10 @@ function showBlocked() {
   document.getElementById("blocked").style.display = "block";
 }
 
-function checkServer(browserId) {
+// Vérification du token auprès du serveur
+function checkToken() {
   return new Promise((resolve, reject) => {
+
     const script = document.createElement("script");
 
     const timeout = setTimeout(() => {
@@ -264,8 +251,8 @@ function checkServer(browserId) {
     };
 
     script.src = SCRIPT_URL +
-      "?action=check" +
-      "&browserId=" + encodeURIComponent(browserId) +
+      "?action=checkToken" +
+      "&token=" + encodeURIComponent(token) +
       "&callback=restorpcCheckCallback" +
       "&t=" + Date.now();
 
@@ -273,12 +260,17 @@ function checkServer(browserId) {
   });
 }
 
-// Vérification dès l'ouverture du formulaire
+// Vérification à l'ouverture de la page
 async function initializeForm() {
-  try {
-    const browserId = getBrowserId();
 
-    const allowed = await checkServer(browserId);
+  if (!token) {
+    showBlocked();
+    return;
+  }
+
+  try {
+
+    const allowed = await checkToken();
 
     if (!allowed) {
       showBlocked();
@@ -288,10 +280,7 @@ async function initializeForm() {
     formArea.style.visibility = "visible";
 
   } catch (error) {
-    sendButton.disabled = true;
-    formArea.style.display = "none";
-    document.getElementById("success").style.display = "none";
-    document.getElementById("blocked").style.display = "block";
+    showBlocked();
   }
 }
 
@@ -311,7 +300,9 @@ radios.forEach(radio => {
   radio.addEventListener("change", refreshStars);
 });
 
+// Envoi de l'avis
 form.addEventListener("submit", async function(e) {
+
   e.preventDefault();
 
   if (!form.reportValidity()) return;
@@ -320,10 +311,9 @@ form.addEventListener("submit", async function(e) {
   sendButton.textContent = "Vérification en cours...";
 
   try {
-    const browserId = getBrowserId();
 
-    // Vérification serveur avant chaque envoi
-    const allowed = await checkServer(browserId);
+    // Nouvelle vérification avant l'envoi
+    const allowed = await checkToken();
 
     if (!allowed) {
       showBlocked();
@@ -333,7 +323,9 @@ form.addEventListener("submit", async function(e) {
     sendButton.textContent = "Envoi en cours...";
 
     const data = new URLSearchParams(new FormData(form));
-    data.set("browserId", browserId);
+
+    // Ajout du token à l'avis
+    data.set("token", token);
 
     await fetch(SCRIPT_URL, {
       method: "POST",
@@ -345,8 +337,10 @@ form.addEventListener("submit", async function(e) {
     document.getElementById("success").style.display = "block";
 
   } catch (error) {
+
     sendButton.disabled = false;
     sendButton.textContent = "Réessayer";
+
     alert("Erreur de vérification ou d'envoi. Veuillez réessayer.");
   }
 });
