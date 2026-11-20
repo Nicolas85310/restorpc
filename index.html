@@ -34,13 +34,8 @@
       backdrop-filter: blur(14px); border-bottom: 1px solid rgba(229,234,243,.9);
     }
     .nav { min-height: 76px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
-    .brand { display:flex; align-items:center; gap:11px; text-decoration:none; font-weight:900; letter-spacing:.035em; font-size:1.35rem; }
-    .brand-mark {
-      width:39px; height:39px; display:grid; place-items:center; border-radius:12px;
-      color:white; background:linear-gradient(135deg,var(--blue-2),var(--purple));
-      box-shadow:0 8px 18px rgba(100,76,230,.22);
-    }
-    .brand span:last-child { background:linear-gradient(90deg,var(--blue),var(--purple)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .brand { display:flex; align-items:center; text-decoration:none; flex:0 1 auto; min-width:0; }
+    .brand-logo { display:block; width:220px; max-height:72px; height:auto; object-fit:contain; object-position:left center; }
     .navlinks { display:flex; align-items:center; gap:25px; }
     .navlinks a { text-decoration:none; font-size:.94rem; font-weight:650; color:#40516d; }
     .navlinks a:hover { color:var(--purple); }
@@ -50,6 +45,7 @@
       transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
     .nav-cta,.btn-primary { color:#fff; background:linear-gradient(100deg,var(--blue),var(--purple)); box-shadow:0 9px 22px rgba(91,83,220,.20); }
+    .navlinks a.nav-cta, .navlinks a.nav-cta:hover { color:#fff; }
     .nav-cta:hover,.btn:hover { transform:translateY(-2px); box-shadow:0 13px 25px rgba(91,83,220,.24); }
     .menu-btn { display:none; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:10px; padding:9px 12px; font-size:1.2rem; }
     .hero {
@@ -136,7 +132,7 @@
       .contact-card { padding:27px 20px; }
       .review-shell { padding:15px; }
       .review-top { align-items:flex-start; flex-direction:column; }
-      .brand { font-size:1.2rem; }
+      .brand-logo { width:175px; max-height:58px; }
     }
   </style>
 </head>
@@ -144,7 +140,7 @@
   <header class="topbar">
     <div class="wrap nav">
       <a class="brand" href="#accueil" aria-label="RESTORPC85, accueil">
-        <span class="brand-mark">R</span><span>RESTORPC85</span>
+        <img class="brand-logo" src="Logo_RESTORPC85.png" alt="Logo RESTORPC85">
       </a>
       <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
       <nav class="navlinks" id="navLinks" aria-label="Navigation principale">
