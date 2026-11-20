@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="fr">
 <head>
@@ -219,7 +220,7 @@
         <div class="section-head">
           <span class="kicker">Avis clients</span>
           <h2 class="section-title">Votre expérience compte</h2>
-          <p class="section-desc">Découvrez les derniers retours partagés anonymement par les clients RESTORPC85.</p>
+          <p class="section-desc">Découvrez les derniers retours partagés par les clients RESTORPC85.</p>
         </div>
         <div class="review-shell">
           <div class="review-top"><strong>Les 5 derniers avis</strong><span class="review-status" id="reviewStatus" aria-live="polite">Chargement des avis…</span></div>
@@ -263,8 +264,6 @@
   </footer>
 
   <script>
-    // À compléter après le déploiement du Google Apps Script :
-    // coller ici l'URL de l'application web terminant par /exec.
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxg3301S_D8vZMrtFRH29HSXil7VyxS1wEVJLJgnhNzYzLhPYNx3HGoDXQ3IfID4Yk/exec";
 
     const menuBtn = document.getElementById("menuBtn");
@@ -285,20 +284,24 @@
       const list = document.getElementById("reviewList");
       const status = document.getElementById("reviewStatus");
       list.replaceChildren();
+
       if (!Array.isArray(reviews) || reviews.length === 0) {
         list.innerHTML = '<div class="review-empty">Aucun avis publié pour le moment. Soyez le premier à partager votre expérience !</div>';
         status.textContent = "0 avis";
         return;
       }
+
       reviews.slice(0, 5).forEach(review => {
         const item = document.createElement("article");
         item.className = "review-item";
+
         const stars = document.createElement("div");
         stars.className = "stars";
         const rating = Math.max(1, Math.min(5, Number(review.rating) || 0));
         stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
         stars.setAttribute("aria-label", rating + " étoiles sur 5");
         item.appendChild(stars);
+
         if (review.comment && String(review.comment).trim()) {
           const comment = document.createElement("p");
           comment.className = "review-comment";
@@ -310,25 +313,32 @@
           comment.textContent = "Avis sans commentaire.";
           item.appendChild(comment);
         }
+
         const meta = document.createElement("div");
         meta.className = "review-meta";
-        meta.textContent = "Avis anonyme";
+        const firstname = String(review.firstname || "Anonyme").trim().slice(0, 30);
+        meta.textContent = "— " + (firstname || "Anonyme");
         item.appendChild(meta);
+
         list.appendChild(item);
       });
+
       status.textContent = reviews.length + (reviews.length > 1 ? " avis récents" : " avis récent");
     }
 
     // JSONP : permet de lire les avis Google Apps Script depuis un autre domaine.
     function loadReviews() {
       const status = document.getElementById("reviewStatus");
+
       if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("REMPLACER_PAR")) {
         status.textContent = "Connexion aux avis à configurer";
         showReviews([]);
         status.textContent = "Connexion à configurer";
         return;
       }
+
       const callbackName = "restorpcReviewsCallback";
+
       window[callbackName] = data => {
         try {
           showReviews(data && data.reviews ? data.reviews : []);
@@ -339,17 +349,22 @@
           if (script.parentNode) script.parentNode.removeChild(script);
         }
       };
+
       const script = document.createElement("script");
       script.src = APPS_SCRIPT_URL + (APPS_SCRIPT_URL.includes("?") ? "&" : "?")
         + "callback=" + callbackName + "&_=" + Date.now();
+
       script.onerror = () => {
         status.textContent = "Avis momentanément indisponibles";
         delete window[callbackName];
         if (script.parentNode) script.parentNode.removeChild(script);
       };
+
       document.head.appendChild(script);
     }
+
     loadReviews();
   </script>
 </body>
 </html>
+```
