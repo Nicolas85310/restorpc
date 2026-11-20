@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avis client - RESTORPC85</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f4f8;
+  font-family: Arial, sans-serif;
+  color: #263445;
+}
+
+.container {
+  background: white;
+  width: 100%;
+  max-width: 480px;
+  padding: 32px 25px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px #00000012;
+  text-align: center;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #2476c9;
+  letter-spacing: 1px;
+}
+
+h2 { margin-top: 28px; }
+
+.subtitle {
+  color: #687789;
+  line-height: 1.5;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 25px 0;
+}
+
+.stars input { display: none; }
+
+.stars label {
+  font-size: 43px;
+  color: #d5dbe2;
+  cursor: pointer;
+  transition: color .15s;
+}
+
+.stars label.active,
+.stars label:hover {
+  color: #f5b82e;
+}
+
+input[name="firstname"],
+textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d5dbe2;
+  border-radius: 9px;
+  font: inherit;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px;
+  border: 0;
+  border-radius: 9px;
+  background: #2476c9;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled { opacity: .6; }
+
+#success { display: none; }
+#blocked { display: none; }
+
+.small {
+  margin-top: 25px;
+  color: #8995a2;
+  font-size: 12px;
+}
+
+/* Champ anti-robots invisible */
+.trap {
+  position: absolute;
+  left: -9999px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">RESTORPC85</div>
+
+  <div id="formArea">
+
+    <h2>Votre avis nous intéresse !</h2>
+
+    <p class="subtitle">
+      Merci de votre confiance.<br>
+      Comment évaluez-vous notre prestation ?
+    </p>
+
+    <form id="survey">
+
+      <p><strong>Votre prénom</strong></p>
+
+      <input
+        type="text"
+        name="firstname"
+        placeholder="Votre prénom"
+        maxlength="30"
+        autocomplete="given-name"
+        required
+      >
+
+      <div class="stars" role="radiogroup"
+           aria-label="Note de 1 à 5 étoiles">
+
+        <input type="radio" name="rating" id="s1" value="1" required>
+        <label for="s1" aria-label="1 étoile">★</label>
+
+        <input type="radio" name="rating" id="s2" value="2">
+        <label for="s2" aria-label="2 étoiles">★</label>
+
+        <input type="radio" name="rating" id="s3" value="3">
+        <label for="s3" aria-label="3 étoiles">★</label>
+
+        <input type="radio" name="rating" id="s4" value="4">
+        <label for="s4" aria-label="4 étoiles">★</label>
+
+        <input type="radio" name="rating" id="s5" value="5">
+        <label for="s5" aria-label="5 étoiles">★</label>
+
+      </div>
+
+      <p><strong>Un commentaire ?</strong> (facultatif)</p>
+
+      <textarea name="comment"
+        placeholder="Votre commentaire ici..."></textarea>
+
+      <div class="trap">
+        <input type="text" name="website" tabindex="-1"
+               autocomplete="off">
+      </div>
+
+      <button type="submit" id="send">
+        Envoyer mon avis
+      </button>
+
+    </form>
+
+  </div>
+
+  <div id="success">
+    <h2>Merci pour votre avis !</h2>
+    <p class="subtitle">
+      Votre retour est précieux pour RESTORPC85.<br>
+      À bientôt !
+    </p>
+    <div style="font-size:45px;color:#2476c9">✓</div>
+  </div>
+
+  <div id="blocked">
+    <h2>Vous avez déjà participé !</h2>
+    <p class="subtitle">
+      Un avis a déjà été envoyé depuis ce navigateur.
+    </p>
+    <div style="font-size:45px;color:#2476c9">✓</div>
+  </div>
+
+  <div class="small">© RESTORPC85 - Votre informatique, notre priorité</div>
+
+</div>
+
+<script>
+
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxg3301S_D8vZMrtFRH29HSXil7VyxS1wEVJLJgnhNzYzLhPYNx3HGoDXQ3IfID4Yk/exec";
+
+const BROWSER_ID_KEY = "restorpc_browser_id";
+
+const form = document.getElementById("survey");
+const labels = document.querySelectorAll(".stars label");
+const radios = document.querySelectorAll(".stars input");
+
+const formArea = document.getElementById("formArea");
+const sendButton = document.getElementById("send");
+
+// Évite d'afficher le formulaire avant la vérification serveur
+formArea.style.visibility = "hidden";
+
+function getBrowserId() {
+  let id = localStorage.getItem(BROWSER_ID_KEY);
+
+  if (!id) {
+    id = crypto.randomUUID
+      ? crypto.randomUUID()
+      : "xxxxxxxxyxxx4xxxyxxxyxxxxxxxxxxx".replace(/[xy]/g, c => {
+          const r = Math.random() * 16 | 0;
+          return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+
+    localStorage.setItem(BROWSER_ID_KEY, id);
+  }
+
+  return id;
+}
+
+function showBlocked() {
+  formArea.style.display = "none";
+  document.getElementById("success").style.display = "none";
+  document.getElementById("blocked").style.display = "block";
+}
+
+function checkServer(browserId) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+
+    const timeout = setTimeout(() => {
+      cleanup();
+      reject(new Error("Vérification expirée"));
+    }, 10000);
+
+    function cleanup() {
+      clearTimeout(timeout);
+      delete window.restorpcCheckCallback;
+      script.remove();
+    }
+
+    window.restorpcCheckCallback = function(result) {
+      cleanup();
+      resolve(result.allowed === true);
+    };
+
+    script.onerror = function() {
+      cleanup();
+      reject(new Error("Vérification impossible"));
+    };
+
+    script.src = SCRIPT_URL +
+      "?action=check" +
+      "&browserId=" + encodeURIComponent(browserId) +
+      "&callback=restorpcCheckCallback" +
+      "&t=" + Date.now();
+
+    document.body.appendChild(script);
+  });
+}
+
+// Vérification dès l'ouverture du formulaire
+async function initializeForm() {
+  try {
+    const browserId = getBrowserId();
+
+    const allowed = await checkServer(browserId);
+
+    if (!allowed) {
+      showBlocked();
+      return;
+    }
+
+    formArea.style.visibility = "visible";
+
+  } catch (error) {
+    sendButton.disabled = true;
+    formArea.style.display = "none";
+    document.getElementById("success").style.display = "none";
+    document.getElementById("blocked").style.display = "block";
+  }
+}
+
+function refreshStars() {
+  const selected = document.querySelector(
+    '.stars input:checked'
+  );
+
+  const value = selected ? Number(selected.value) : 0;
+
+  labels.forEach((label, index) => {
+    label.classList.toggle("active", index < value);
+  });
+}
+
+radios.forEach(radio => {
+  radio.addEventListener("change", refreshStars);
+});
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  if (!form.reportValidity()) return;
+
+  sendButton.disabled = true;
+  sendButton.textContent = "Vérification en cours...";
+
+  try {
+    const browserId = getBrowserId();
+
+    // Vérification serveur avant chaque envoi
+    const allowed = await checkServer(browserId);
+
+    if (!allowed) {
+      showBlocked();
+      return;
+    }
+
+    sendButton.textContent = "Envoi en cours...";
+
+    const data = new URLSearchParams(new FormData(form));
+    data.set("browserId", browserId);
+
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: data
+    });
+
+    formArea.style.display = "none";
+    document.getElementById("success").style.display = "block";
+
+  } catch (error) {
+    sendButton.disabled = false;
+    sendButton.textContent = "Réessayer";
+    alert("Erreur de vérification ou d'envoi. Veuillez réessayer.");
+  }
+});
+
+initializeForm();
+
+</script>
+
+</body>
+</html>
