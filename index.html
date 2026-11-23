@@ -129,6 +129,9 @@
     footer { padding:28px 0; border-top:1px solid var(--line); color:#8290a4; font-size:.86rem; }
     .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
     .footer-brand { color:var(--blue); font-weight:900; letter-spacing:.04em; }
+    .footer-links { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .footer-links a { color:var(--muted); text-decoration:none; }
+    .footer-links a:hover { color:var(--purple); }
     @media (max-width:850px) {
       .navlinks { display:none; position:absolute; top:76px; left:0; right:0; padding:18px 22px 22px; background:#fff; border-bottom:1px solid var(--line); flex-direction:column; align-items:stretch; gap:14px; }
       .navlinks.open { display:flex; }
@@ -288,6 +291,10 @@
       <span class="footer-brand">RESTORPC85</span>
       <span>Réparation · Optimisation · Assistance informatique</span>
       <span>© <span id="year"></span> RESTORPC85</span>
+      <nav class="footer-links" aria-label="Informations légales">
+        <a href="/mentions-legales.html">Mentions légales</a>
+        <a href="/confidentialite.html">Politique de confidentialité</a>
+      </nav>
     </div>
   </footer>
 
