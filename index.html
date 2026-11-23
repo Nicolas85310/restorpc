@@ -76,6 +76,12 @@
     .visual-icon { font-size:3.4rem; line-height:1; margin:18px 0 25px; }
     .visual-card h2 { font-size:1.65rem; line-height:1.2; max-width:280px; margin:0 0 12px; }
     .visual-card p { color:rgba(255,255,255,.82); max-width:300px; margin:0; }
+    .visual-content { position:relative; z-index:2; width:64%; }
+    .visual-image {
+      position:absolute; z-index:1; right:18px; top:50%; transform:translateY(-50%);
+      width:36%; max-height:76%; object-fit:contain;
+      filter:drop-shadow(0 12px 18px rgba(12,25,65,.22));
+    }
     .mini-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:27px; }
     .mini-pills span { font-size:.78rem; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.1); padding:6px 10px; border-radius:999px; }
     section { padding:82px 0; }
@@ -136,6 +142,8 @@
       .review-shell { padding:15px; }
       .review-top { align-items:flex-start; flex-direction:column; }
       .brand-logo { width:175px; max-height:58px; }
+      .visual-content { width:66%; }
+      .visual-image { right:10px; width:34%; max-height:68%; }
     }
   </style>
 </head>
@@ -171,10 +179,13 @@
           <p class="hero-note">Dépôt et récupération du matériel sur rendez-vous · Pas de déplacement à domicile.</p>
         </div>
         <div class="visual-card" aria-label="Services de réparation informatique">
-          <div class="visual-icon">💻</div>
-          <h2>Redonnez une seconde jeunesse à votre matériel.</h2>
-          <p>Un ordinateur lent, une panne ou un besoin d'amélioration ? Trouvons la solution adaptée.</p>
-          <div class="mini-pills"><span>PC fixes</span><span>PC portables</span><span>PC gaming</span><span>Consoles</span></div>
+          <div class="visual-content">
+            <div class="visual-icon">💻</div>
+            <h2>Redonnez une seconde jeunesse à votre matériel.</h2>
+            <p>Un ordinateur lent, une panne ou un besoin d'amélioration ? Trouvons la solution adaptée.</p>
+            <div class="mini-pills"><span>PC fixes</span><span>PC portables</span><span>PC gaming</span><span>Consoles</span></div>
+          </div>
+          <img class="visual-image" src="repare.png" alt="Illustration de réparation informatique">
         </div>
       </div>
     </section>
