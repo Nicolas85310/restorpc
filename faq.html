@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#244eae">
+  <meta name="description" content="Questions fréquentes sur les prestations RESTORPC85 : diagnostic, devis, réparations et dépôt du matériel.">
+  <title>Questions fréquentes | RESTORPC85</title>
+  <style>
+    :root {
+      --blue:#244eae; --purple:#644ce6; --ink:#172b50;
+      --muted:#64748b; --line:#e5eaf3; --pale:#f2f5ff;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; padding:0; color:var(--ink); background:#fff;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.65;
+    }
+    .faq-section { padding:72px 20px 82px; }
+    .faq-wrap { width:min(850px,100%); margin:0 auto; }
+    .faq-head { max-width:700px; margin:0 auto 36px; text-align:center; }
+    .kicker { color:var(--purple); font-size:.8rem; text-transform:uppercase; letter-spacing:.14em; font-weight:850; }
+    h1 { margin:9px 0 12px; font-size:clamp(2rem,3.5vw,2.8rem); line-height:1.15; letter-spacing:-.04em; }
+    .intro { color:var(--muted); margin:0; }
+    .faq-list { display:grid; gap:12px; }
+    .faq-item { border:1px solid var(--line); border-radius:16px; background:#fff; overflow:hidden; }
+    .faq-item[open] { border-color:#d8def8; box-shadow:0 8px 24px rgba(30,55,110,.055); }
+    .faq-item summary {
+      position:relative; display:flex; align-items:center; justify-content:space-between; gap:18px;
+      padding:19px 22px; cursor:pointer; list-style:none; font-weight:750; color:var(--ink);
+    }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item summary::after {
+      content:"+"; flex:0 0 30px; width:30px; height:30px; display:grid; place-items:center;
+      border-radius:50%; color:var(--purple); background:#f0efff; font-size:1.25rem; font-weight:500;
+    }
+    .faq-item[open] summary::after { content:"−"; }
+    .faq-answer { padding:0 22px 20px; color:var(--muted); }
+    .faq-answer p { margin:0; }
+    .faq-answer strong { color:var(--ink); }
+    .faq-contact { margin:28px 0 0; text-align:center; color:var(--muted); }
+    .faq-contact a { color:var(--blue); font-weight:750; text-decoration:none; }
+    .faq-contact a:hover { color:var(--purple); text-decoration:underline; }
+    @media(max-width:560px) {
+      .faq-section { padding:58px 15px 64px; }
+      .faq-item summary { padding:16px; }
+      .faq-answer { padding:0 16px 17px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="faq-section">
+    <div class="faq-wrap">
+      <header class="faq-head">
+        <span class="kicker">Besoin d'informations ?</span>
+        <h1>Questions fréquentes</h1>
+        <p class="intro">Les réponses aux questions les plus courantes avant la prise en charge de votre matériel.</p>
+      </header>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Le diagnostic et le devis sont-ils gratuits ?</summary>
+          <div class="faq-answer"><p><strong>Oui !</strong> Le diagnostic et le devis sont entièrement gratuits et sans engagement. Après avoir identifié l'origine de la panne, RESTORPC85 vous propose une solution adaptée et vous communique son tarif. Vous restez libre d'accepter ou non la réparation.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quels types de matériels prenez-vous en charge ?</summary>
+          <div class="faq-answer"><p>RESTORPC85 intervient principalement sur les ordinateurs fixes et portables. Certaines consoles peuvent également être prises en charge selon la nature de la panne et le modèle.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Proposez-vous des interventions à domicile ?</summary>
+          <div class="faq-answer"><p>Non. Les prestations sont réalisées sur rendez-vous, avec dépôt et récupération du matériel. Aucun déplacement à domicile n'est proposé pour le moment.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment déposer mon ordinateur ?</summary>
+          <div class="faq-answer"><p>Après votre prise de contact, les modalités et le lieu de dépôt vous sont communiqués. Le dépôt du matériel se fait uniquement sur rendez-vous.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>La réparation est-elle engagée automatiquement après le diagnostic ?</summary>
+          <div class="faq-answer"><p>Non. Après le diagnostic, une proposition de réparation et son tarif vous sont communiqués. <strong>Aucune réparation n'est engagée sans votre accord.</strong></p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Combien de temps dure une réparation ?</summary>
+          <div class="faq-answer"><p>Le délai dépend de la nature de la panne, de la complexité de l'intervention et de la disponibilité des pièces éventuellement nécessaires. Une estimation vous est communiquée après le diagnostic.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment demander une prise en charge ?</summary>
+          <div class="faq-answer"><p>Il vous suffit de remplir le formulaire de contact en décrivant votre problème informatique. RESTORPC85 reviendra vers vous afin d'organiser la suite de la prise en charge.</p></div>
+        </details>
+      </div>
+
+      <p class="faq-contact">Vous avez une autre question ? <a href="https://devis.pro/restorpc85" target="_blank" rel="noopener">Contactez RESTORPC85 via le formulaire</a>.</p>
+    </div>
+  </main>
+
+  <script>
+    function sendFaqHeight() {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: "restorpc85-faq-height", height: document.documentElement.scrollHeight }, "*");
+      }
+    }
+    window.addEventListener("load", sendFaqHeight);
+    window.addEventListener("resize", sendFaqHeight);
+    document.querySelectorAll(".faq-item").forEach(item => item.addEventListener("toggle", sendFaqHeight));
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(sendFaqHeight).observe(document.documentElement);
+    }
+  </script>
+</body>
+</html>
